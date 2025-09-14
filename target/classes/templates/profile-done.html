@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>VulnLeaf — Renamed</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg,#ff9966,#ff5e62);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(16px);
+      border-radius: 18px;
+      padding: 40px 50px;
+      width: 420px;
+      box-shadow: 0 10px 35px rgba(0,0,0,0.3);
+      text-align: center;
+      color: #fff;
+      animation: fadeIn .7s ease;
+    }
+    h2 { margin: 0 0 18px; font-size: 24px; font-weight: 800; }
+    p { margin: 6px 0; font-size: 14px; }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 18px;
+      background: linear-gradient(90deg,#43cea2,#185a9d);
+      border-radius: 12px;
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      transition: box-shadow .2s ease, transform .2s ease;
+    }
+    a:hover { box-shadow: 0 10px 22px rgba(24,90,157,.4); transform: translateY(-2px); }
+    @keyframes fadeIn { from {opacity:0; transform: translateY(20px);} to {opacity:1; transform: translateY(0);} }
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:50">
+  <a href="/home" style="
+    text-decoration:none;padding:8px 12px;border-radius:10px;
+    background:linear-gradient(90deg,#7b61ff,#5ac8fa);color:#0b1220;
+    font-weight:800;box-shadow:0 10px 20px rgba(123,97,255,.35);">Home</a>
+</div>
+  <div class="card">
+    <h2>Profile Updated</h2>
+    <p th:text="'Updated rows: ' + ${updated}"></p>
+    <p th:text="'User: ' + ${username} + ' → ' + ${newName}"></p>
+    <a href="/profile">Back to Profile</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>VulnLeaf — Proxy Result</title>
+  <style>
+    body {font-family:sans-serif;background:linear-gradient(135deg,#43cea2,#185a9d);
+          display:flex;align-items:center;justify-content:center;height:100vh;color:#fff;}
+    .card {background:rgba(255,255,255,0.08);padding:30px 40px;border-radius:16px;
+           backdrop-filter:blur(12px);width:600px;box-shadow:0 10px 30px rgba(0,0,0,0.3);}
+    pre {background:rgba(0,0,0,0.5);padding:15px;border-radius:10px;overflow-x:auto;
+         max-height:300px;color:#e2e8f0;font-size:13px;}
+    a {color:#ffeb3b;text-decoration:none;font-weight:600;}
+    a:hover {text-decoration:underline;}
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:50">
+  <a href="/home" style="
+    text-decoration:none;padding:8px 12px;border-radius:10px;
+    background:linear-gradient(90deg,#7b61ff,#5ac8fa);color:#0b1220;
+    font-weight:800;box-shadow:0 10px 20px rgba(123,97,255,.35);">Home</a>
+</div>
+  <div class="card">
+    <h2>Fetched Content</h2>
+    <p><b>Target:</b> <span th:text="${target}"></span></p>
+    <pre th:text="${body}"></pre>
+    <a href="/proxy">Back</a>
+  </div>
+</body>
+</html>

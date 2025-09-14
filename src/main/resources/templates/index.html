@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>VulnLeaf — Home</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg, #1d2b64, #f8cdda);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .card {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      width: 400px;
+      text-align: center;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    h2 {
+      margin-bottom: 20px;
+      color: #1d2b64;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      outline: none;
+      font-size: 14px;
+    }
+    input:focus {
+      border-color: #1d2b64;
+    }
+    button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #1d2b64;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background: #3e4a89;
+    }
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(-20px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:50">
+  <a href="/home" style="
+    text-decoration:none;padding:8px 12px;border-radius:10px;
+    background:linear-gradient(90deg,#7b61ff,#5ac8fa);color:#0b1220;
+    font-weight:800;box-shadow:0 10px 20px rgba(123,97,255,.35);">Home</a>
+</div>
+
+  <div class="card">
+    <h2>VulnLeaf — Reflected XSS Demo</h2>
+    <form method="post" action="/echo">
+      <input name="msg" placeholder="Type message or script" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</body>
+</html>

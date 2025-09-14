@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>VulnLeaf — Profile</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      background: linear-gradient(135deg,#00c6ff,#0072ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .glass {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(18px) saturate(160%);
+      -webkit-backdrop-filter: blur(18px) saturate(160%);
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,0.3);
+      padding: 40px 50px;
+      width: 420px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+      animation: fadeIn .8s ease;
+    }
+    h2 {
+      margin-top: 0;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: .5px;
+    }
+    input {
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      font-weight: 500;
+      background: rgba(255,255,255,0.85);
+    }
+    input:focus {
+      box-shadow: 0 0 0 3px rgba(0,114,255,0.25);
+    }
+    button {
+      margin-top: 16px;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(90deg,#ff758c,#ff7eb3);
+      color: #fff;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(255,118,150,0.4);
+    }
+    .note {
+      margin-top: 20px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.8);
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(20px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:50">
+  <a href="/home" style="
+    text-decoration:none;padding:8px 12px;border-radius:10px;
+    background:linear-gradient(90deg,#7b61ff,#5ac8fa);color:#0b1220;
+    font-weight:800;box-shadow:0 10px 20px rgba(123,97,255,.35);">Home</a>
+</div>
+  <div class="glass">
+    <h2>Update Profile</h2>
+    <form method="post" action="/profile/rename">
+      <input name="username" placeholder="alice" />
+      <input name="newName" placeholder="New Full Name" />
+      <button type="submit">Rename User</button>
+    </form>
+    <p class="note"> No CSRF token — intentionally vulnerable.</p>
+  </div>
+</body>
+</html>

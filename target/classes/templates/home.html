@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VulnLeaf — Security Demonstration Hub</title>
+  <style>
+    :root{
+      --bg0:#0b1220; --bg1:#101827; --bg2:#0e172a;
+      --text:#e5e7eb; --muted:#a3aab8;
+      --card:rgba(255,255,255,.06);
+      --stroke:rgba(255,255,255,.12);
+      --gradA:#7b61ff; --gradB:#5ac8fa; --badA:#ef4444; --badT:#fecaca;
+      --btnShadow:0 14px 30px rgba(123,97,255,.45);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% -10%, rgba(123,97,255,.25), transparent 55%),
+        radial-gradient(1000px 500px at 100% 10%, rgba(90,200,250,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg0));
+      min-height:100vh; display:flex; align-items:center; justify-content:center; padding:36px;
+      overflow-x:hidden;
+    }
+
+    /* floating glow blobs */
+    .blob, .blob2{
+      position:fixed; inset:auto auto 10% -12%;
+      width:520px; height:520px; border-radius:50%;
+      background:radial-gradient(circle at 30% 30%, rgba(123,97,255,.25), rgba(0,0,0,0));
+      filter:blur(35px); opacity:.85; z-index:0; animation:float 14s ease-in-out infinite;
+    }
+    .blob2{
+      left:auto; right:-12%; bottom:5%;
+      background:radial-gradient(circle at 70% 40%, rgba(90,200,250,.22), rgba(0,0,0,0));
+      animation:float2 16s ease-in-out infinite;
+    }
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-24px)}}
+    @keyframes float2{0%,100%{transform:translateY(0)}50%{transform:translateY(18px)}}
+
+    .wrap{position:relative; z-index:1; width:1200px; max-width:96vw}
+    header{
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;
+      gap:12px;
+    }
+    .brand{
+      font-weight:900; letter-spacing:.3px; font-size:28px; margin:0;
+      background:linear-gradient(90deg,var(--gradA),var(--gradB));
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+    }
+    .tag{font-size:12px; color:var(--muted)}
+    .title{
+      margin:6px 0 22px; font-size:20px; color:var(--muted);
+    }
+
+    .grid{
+      display:grid; gap:22px;
+      grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+    }
+
+    .card{
+      position:relative; border-radius:18px; padding:18px 18px 16px;
+      background:var(--card); border:1px solid var(--stroke);
+      backdrop-filter:blur(16px) saturate(140%); -webkit-backdrop-filter:blur(16px) saturate(140%);
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+      transition:transform .16s ease, box-shadow .2s ease;
+      overflow:hidden;
+    }
+    .card:before{
+      content:""; position:absolute; inset:0; pointer-events:none; border-radius:18px;
+      padding:1px;
+      background:linear-gradient(110deg, rgba(123,97,255,.55), rgba(90,200,250,.55));
+      -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude; opacity:.25;
+    }
+    .card:hover{transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.5)}
+
+    .badge{
+      display:inline-flex; align-items:center; gap:8px;
+      font-size:11px; padding:5px 10px; border-radius:999px; margin-bottom:10px;
+      background:rgba(239,68,68,.18); color:var(--badT);
+      border:1px solid rgba(239,68,68,.35);
+    }
+    .icon{
+      width:18px; height:18px; display:inline-block;
+      background:conic-gradient(from 200deg, var(--gradA), var(--gradB));
+      border-radius:4px; filter:saturate(120%);
+    }
+    .h{margin:0 0 8px; font-size:18px; font-weight:800}
+    .p{margin:0 0 16px; font-size:13px; color:#cbd5e1}
+    .btn{
+      display:inline-block; text-decoration:none; font-weight:800; font-size:14px;
+      padding:11px 16px; border-radius:12px; color:#0b1220;
+      background:linear-gradient(90deg,var(--gradA),var(--gradB)); box-shadow:var(--btnShadow);
+      transition:transform .12s ease, box-shadow .12s ease, opacity .2s ease;
+    }
+    .btn:hover{transform:translateY(-2px); box-shadow:0 18px 36px rgba(123,97,255,.55)}
+    .btn:active{transform:translateY(0)}
+    .btn:focus{outline:2px solid rgba(90,200,250,.7); outline-offset:3px; border-radius:14px}
+
+    /* responsive polish */
+    @media (max-width:560px){
+      header{flex-direction:column; align-items:flex-start}
+      .brand{font-size:24px}
+      .title{font-size:16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="blob"></div><div class="blob2"></div>
+
+  <main class="wrap" role="main">
+    <header>
+      <div>
+        <h1 class="brand">VulnLeaf — Security Demonstration Hub</h1>
+        <p class="tag">Quick access to all Task-1 scenarios. Each page is <b>intentionally vulnerable</b> for the lab.</p>
+      </div>
+    </header>
+
+    <p class="title">Choose a scenario:</p>
+
+    <section class="grid" aria-label="Vulnerability cards">
+
+      <article class="card">
+        <span class="badge"><span class="icon" aria-hidden="true"></span> Vulnerable</span>
+        <h2 class="h">Cross-Site Scripting (XSS)</h2>
+        <p class="p">Echoes untrusted input with <code>th:utext</code>, enabling script execution.</p>
+        <a class="btn" href="/" aria-label="Open XSS Demo">Open XSS Demo</a>
+      </article>
+
+      <article class="card">
+        <span class="badge"><span class="icon" aria-hidden="true"></span> Vulnerable</span>
+        <h2 class="h">SQL Injection</h2>
+        <p class="p">Login query concatenates input; try <code>' OR '1'='1</code>.</p>
+        <a class="btn" href="/login" aria-label="Open Login">Open Login</a>
+      </article>
+
+      <article class="card">
+        <span class="badge"><span class="icon" aria-hidden="true"></span> Vulnerable</span>
+        <h2 class="h">Unrestricted File Upload</h2>
+        <p class="p">Accepts any file without type/size/content checks; stores on server.</p>
+        <a class="btn" href="/upload" aria-label="Open Upload">Open Upload</a>
+      </article>
+
+      <article class="card">
+        <span class="badge"><span class="icon" aria-hidden="true"></span> Vulnerable</span>
+        <h2 class="h">Cross-Site Request Forgery</h2>
+        <p class="p">State change without CSRF token; forged forms can auto-submit.</p>
+        <a class="btn" href="/profile" aria-label="Open Profile">Open Profile</a>
+      </article>
+
+      <article class="card">
+        <span class="badge"><span class="icon" aria-hidden="true"></span> Vulnerable</span>
+        <h2 class="h">Data Aggregation / Inference</h2>
+        <p class="p">Over-exposed analytics reveals names, emails and totals.</p>
+        <a class="btn" href="/report/top-spend" aria-label="Open Report">Open Report</a>
+      </article>
+
+      <article class="card">
+        <span class="badge"><span class="icon" aria-hidden="true"></span> Vulnerable</span>
+        <h2 class="h">Server-Side Request Forgery</h2>
+        <p class="p">Proxy fetches arbitrary URLs. Target the helper service on 8081.</p>
+        <a class="btn" href="/proxy" aria-label="Open Proxy">Open Proxy</a>
+      </article>
+
+    </section>
+  </main>
+</body>
+</html>

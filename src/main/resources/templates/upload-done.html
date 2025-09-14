@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>VulnLeaf — Uploaded</title>
+  <style>
+    :root {
+      --bg1: #0f2027; --bg2: #203a43; --bg3: #2c5364;
+      --card-bg: #ffffff; --accent: #ff7e5f; --accent2: #feb47b;
+      --muted: #64748b; --text: #0f172a;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+      display: grid; place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: 560px; max-width: 94vw;
+      background: var(--card-bg);
+      border-radius: 16px;
+      box-shadow: 0 30px 60px rgba(0,0,0,.28);
+      animation: pop .5s ease;
+    }
+    .wrap { padding: 28px; }
+    h3 {
+      margin: 0 0 10px; font-size: 22px; font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      letter-spacing: .2px;
+    }
+    .path {
+      margin-top: 10px;
+      background: #0b1220;
+      color: #e2e8f0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px; overflow-x: auto;
+    }
+    .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+    .btn {
+      appearance: none; border: none; cursor: pointer;
+      padding: 10px 16px; border-radius: 10px; font-weight: 700;
+      color: #fff; background: linear-gradient(90deg, var(--accent), var(--accent2));
+      box-shadow: 0 8px 20px rgba(255,126,95,.35);
+      text-decoration: none; display: inline-block;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(255,126,95,.45); }
+    a.link { color: #7aa6ff; text-decoration: none; font-weight: 600; }
+    a.link:hover { text-decoration: underline; }
+    @keyframes pop { from { transform: translateY(6px); opacity: 0; } to { transform: none; opacity: 1; } }
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:50">
+  <a href="/home" style="
+    text-decoration:none;padding:8px 12px;border-radius:10px;
+    background:linear-gradient(90deg,#7b61ff,#5ac8fa);color:#0b1220;
+    font-weight:800;box-shadow:0 10px 20px rgba(123,97,255,.35);">Home</a>
+</div>
+  <div class="card">
+    <div class="wrap">
+      <h3>Upload Completed</h3>
+      <div class="path" th:text="'Saved at: ' + ${path}">Saved at: /tmp/vulnleaf-uploads/example.exe</div>
+      <div class="actions">
+        <a class="btn" href="/upload">Upload Another</a>
+        <a class="link" href="/">Back to Home</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

